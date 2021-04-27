@@ -1,28 +1,23 @@
 package com.bridgelabz.employeepayrollapp.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import lombok.Data;
+
+@Data
 public class EmployeeDTO {
 
-    private String name;
+	@NotEmpty(message = "Please enter name")
+	@Size(min = 3, max = 15)
+	private String name;
+	
+	@Email(message = "Please enter a valid Email")
 	private String email;
+	
+	@Pattern(regexp = "([0-9]{2}[ ]|0)?[6-9][0-9]{9}", message = "Please enter a valid phone")
     private String phone;
-    
-    public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-    
+
 }

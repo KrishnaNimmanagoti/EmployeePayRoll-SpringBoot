@@ -11,4 +11,6 @@ public interface IEmployeePayRollService {
 	
 	Employee addEmpoloyee(EmployeeDTO employee);
 
+	Employee getEmployeeById(int employeeId);
+
 }
