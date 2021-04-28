@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,4 +37,31 @@ public class EmployeePayRollService implements IEmployeePayRollService {
                                 "Employee is not exist")
                 );
 	}
+
+	@Override
+	public Employee updateEmployeeById(EmployeeDTO employeeDTO, int employeeId) {
+		
+		return employeePayrollRepo.findById(employeeId)
+				.map(employee -> {
+					employee.setName(employeeDTO.getName());
+					employee.setEmail(employeeDTO.getEmail());
+					employee.setPhone(employeeDTO.getPhone());
+					employee.setAddress(employeeDTO.getAddress());
+					employee.setSalary(employeeDTO.getSalary());
+					employee.setJoinDate(employeeDTO.getJoinDate());
+					return this.employeePayrollRepo.save(employee);
+				})
+				.orElseGet(() -> {
+					return this.addEmpoloyee(employeeDTO);
+				});
+	}
+
+	@Override
+	public Optional<Employee> deleteEmployeeById(int employeeId) {
+		Optional<Employee> employee = employeePayrollRepo.findById(employeeId);
+		employeePayrollRepo.deleteById(employeeId);
+		return employee;
+	}
+	
+	
 }
