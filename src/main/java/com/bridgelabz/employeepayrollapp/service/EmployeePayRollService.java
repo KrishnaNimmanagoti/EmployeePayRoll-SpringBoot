@@ -18,42 +18,36 @@ public class EmployeePayRollService implements IEmployeePayRollService {
 	private IEmployeePayRollRepo employeePayrollRepo;
 
 	@Override
-	public List<Employee> getEmpoloyees() {
+	public List<Employee> getEmpoloyeesList() {
 		return employeePayrollRepo.findAll();
 	}
 
 	@Override
 	public Employee addEmpoloyee(EmployeeDTO employee) {
 		Employee newEmp = new Employee(employee);
-        return this.employeePayrollRepo.save(newEmp);
+		return this.employeePayrollRepo.save(newEmp);
 	}
 
 	@Override
 	public Employee getEmployeeById(int employeeId) {
-		return this.employeePayrollRepo.findById(employeeId)
-                .orElseThrow(() ->
-                        new EmployeePayRollException(
-                        		EmployeePayRollException.exceptionType.EMPLOYEE_NOT_FOUND,
-                                "Employee is not exist")
-                );
+		return this.employeePayrollRepo.findById(employeeId).orElseThrow(() -> new EmployeePayRollException(
+				EmployeePayRollException.exceptionType.EMPLOYEE_NOT_FOUND, "Employee is not exist"));
 	}
 
 	@Override
 	public Employee updateEmployeeById(EmployeeDTO employeeDTO, int employeeId) {
-		
-		return employeePayrollRepo.findById(employeeId)
-				.map(employee -> {
-					employee.setName(employeeDTO.getName());
-					employee.setEmail(employeeDTO.getEmail());
-					employee.setPhone(employeeDTO.getPhone());
-					employee.setAddress(employeeDTO.getAddress());
-					employee.setSalary(employeeDTO.getSalary());
-					employee.setJoinDate(employeeDTO.getJoinDate());
-					return this.employeePayrollRepo.save(employee);
-				})
-				.orElseGet(() -> {
-					return this.addEmpoloyee(employeeDTO);
-				});
+
+		return employeePayrollRepo.findById(employeeId).map(employee -> {
+			employee.setName(employeeDTO.getName());
+			employee.setEmail(employeeDTO.getEmail());
+			employee.setPhone(employeeDTO.getPhone());
+			employee.setAddress(employeeDTO.getAddress());
+			employee.setSalary(employeeDTO.getSalary());
+			employee.setJoinDate(employeeDTO.getJoinDate());
+			return this.employeePayrollRepo.save(employee);
+		}).orElseGet(() -> {
+			return this.addEmpoloyee(employeeDTO);
+		});
 	}
 
 	@Override
@@ -62,6 +56,4 @@ public class EmployeePayRollService implements IEmployeePayRollService {
 		employeePayrollRepo.deleteById(employeeId);
 		return employee;
 	}
-	
-	
 }

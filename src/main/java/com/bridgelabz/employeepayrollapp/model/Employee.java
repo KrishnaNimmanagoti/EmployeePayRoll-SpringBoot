@@ -22,21 +22,21 @@ import lombok.ToString;
 public class Employee {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String name;
-    private String email;
-    private String phone;
-    private String address;
-    private double salary;
-    private Date joinDate;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String name;
+	private String email;
+	private String phone;
+	private String address;
+	private double salary;
+	private Date joinDate;
 
-    public Employee(EmployeeDTO employee) {
-        this.name = employee.getName();
-        this.email = employee.getEmail();
-        this.phone = employee.getPhone();
-        this.address = employee.getAddress();
-        this.salary = employee.getSalary();
-        this.joinDate = employee.getJoinDate();
-    }
+	public Employee(EmployeeDTO employee) {
+		this.name = employee.getName();
+		this.email = employee.getEmail();
+		this.phone = employee.getPhone();
+		this.address = employee.getAddress();
+		this.salary = employee.getSalary();
+		this.joinDate = employee.getJoinDate();
+	}
 }
