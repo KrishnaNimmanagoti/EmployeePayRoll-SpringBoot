@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class ResponseDTO {
 	public Object data;
-    public String message;
+	public String message;
 }

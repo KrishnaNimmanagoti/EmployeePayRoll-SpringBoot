@@ -1,39 +1,42 @@
 package com.bridgelabz.employeepayrollapp.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
-
-import javax.validation.constraints.Email;
+import java.util.List;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Data;
 
 @Data
 public class EmployeeDTO {
 
+	@Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = "Employee name is Invalid")
 	@NotEmpty(message = "Please enter name")
-	@Size(min = 3, max = 15)
 	private String name;
 
-	@Email(message = "Please enter a valid Email")
-	private String email;
-
-	@Pattern(regexp = "([0-9]{2}[ ]|0)?[6-9][0-9]{9}", message = "Please enter a valid phone")
-	private String phone;
-
-	@NotEmpty(message = "Please Enter Address")
-	private String address;
-
 	@NotNull
-	@Min(value = 10000, message = "Minimum salary should be more than 10,000")
+	@Min(value = 500, message = "Minimum salary should be more than 500")
 	private double salary;
 
-	@JsonFormat(pattern = "yyyy/MM/dd")
-	private Date joinDate;
+	@JsonFormat(pattern = "dd MMM yyyy")
+	@NotNull(message = "startDate should Not be Empty")
+	@PastOrPresent(message = "startDate should be past or todays date")
+	private LocalDate startDate;
+
+	@Pattern(regexp = "male|female", message = "Gender must be male | female")
+	private String gender;
+
+	@NotBlank(message = "profileImage should not be blank")
+	private String profileImage;
+
+	private String notes;
+
+	@NotNull
+	private List<String> departments;
 
 }
